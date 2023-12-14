@@ -1,5 +1,11 @@
+import { ServerApp } from "./presentation/server";
 
 
-export const name : string = 'Yhomarth Reyes';
+(( async ()=>{
+    await main();
+}))();
 
-console.log( name );
+
+function main() {
+    ServerApp.start();
+}
