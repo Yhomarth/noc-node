@@ -1,20 +1,22 @@
+import { CronService } from "./cron/cron-service";
 
-import { CronJob } from 'cron';
+const time = '*/5 * * * * *';
+        
+
+const tick = ()=> {
+    const date = new Date();
+    console.log( `tarea corrida ${date}` );
+}
 
 export class ServerApp {
 
 
     static start() {
+
         console.log('Server started..');
 
-
-        const job = new CronJob(
-            '*/3 * * * * *', // cronTime
-            function () {
-                console.log('You will see this message every three second');
-            }
-        );
-        job.start();
+        CronService.createJob(time, tick );
+        
 
 
     }
