@@ -3,8 +3,18 @@ interface CheckServiceInterface {
     execute( url : string ) : Promise<boolean>
 }
 
+type SucessCallback = () => void;
+type FailCallback = ( error : string ) => void;
+
 
 export class CheckService implements CheckServiceInterface {
+
+    constructor(
+        private readonly successCallback : SucessCallback,
+        private readonly failCallback : FailCallback
+    ){
+        
+    }
 
 
     public async execute( url : string ) : Promise<boolean>{
@@ -15,14 +25,13 @@ export class CheckService implements CheckServiceInterface {
                 throw new Error(`Error on check service ${url}`);
             }
 
-            console.log(`Service is ok ${url}`);
-            
+            this.successCallback();            
             return true;
 
         }
         catch(error){
 
-            console.log(`${error}`);
+            this.failCallback( `${error}` );
             return false;
         }
 
